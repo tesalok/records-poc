@@ -34,6 +34,7 @@ class RecordListView(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
         except Exception as e:
             print(e)
+            return Response("Something went wrong, check request data", status=status.HTTP_400_BAD_REQUEST)
         
     def create(self, request, *args, **kwargs):
         for x in request.data:
