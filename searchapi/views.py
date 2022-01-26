@@ -22,7 +22,13 @@ class RecordListView(viewsets.ModelViewSet):
             queryset = Records.objects.all()
             if request.GET.get('search'):
                 keyword = request.GET['search']
-                queryset = queryset.filter(Q(name__icontains=keyword) |Q(state__icontains=keyword))
+                if len(keyword) >2:
+                    if(keyword.find(",")>1):
+                        queryset = queryset.filter(Q(name__icontains=keyword.split(',')[0]) & Q(state__icontains=keyword.split(',')[1]))
+                    else:
+                        queryset = queryset.filter(Q(name__icontains=keyword))
+                else:
+                    queryset = queryset.filter(Q(state__icontains=keyword))
             page = self.paginate_queryset(queryset)
             serializer = RecordSerializer(page,many=True)
             return self.get_paginated_response(serializer.data)

@@ -11,7 +11,7 @@
 #             'HOST': 'localhost',
 #             'PORT': '5432',
 #             'USER': 'postgres',
-#             'PASSWORD': '--'
+#             'PASSWORD': ''
 #         }
 # }
 from search.settings import *
